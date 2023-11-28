@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    {{ msg }}
+    <button id="hello">{{ msg }}</button>
+    <script src="js/hello.js"></script>
 </body>
 
 </html>
