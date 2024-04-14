@@ -19,7 +19,15 @@ fn index() -> Template {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![hello, index, routes::user::register::register])
+        .mount(
+            "/",
+            routes![
+                hello,
+                index,
+                routes::user::register::register,
+                routes::user::login::login
+            ],
+        )
         .mount("/", FileServer::from(relative!("static")))
         .attach(Template::fairing())
         .attach(SqliteDb::init())

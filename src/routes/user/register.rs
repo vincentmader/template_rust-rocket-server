@@ -1,3 +1,4 @@
+use crate::utils::login_validity;
 use crate::{database::SqliteDb, models::api_response::ApiResponse};
 use rocket::{
     http::Status,
@@ -24,6 +25,25 @@ pub async fn register(mut conn: Connection<SqliteDb>, data: Json<Request>) -> Ap
         .bind(user_name)
         .bind(mail_addr)
         .bind(pass_hash);
+
+    if login_validity::is_existing_user_name(&mut conn, user_name).await {
+        return ApiResponse {
+            json: json!("Account with this username already exists."),
+            status: Status::BadRequest,
+        };
+    }
+    if login_validity::is_existing_mail_addr(&mut conn, mail_addr).await {
+        return ApiResponse {
+            json: json!("Account with this mail address already exists."),
+            status: Status::BadRequest,
+        };
+    }
+    if !login_validity::is_valid_mail_addr(mail_addr) {
+        return ApiResponse {
+            json: json!("Invalid mail address format."),
+            status: Status::BadRequest,
+        };
+    }
 
     if conn.execute(sql).await.is_ok() {
         ApiResponse {
