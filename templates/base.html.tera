@@ -1,0 +1,14 @@
+<html>
+
+<head>
+    {% block head %}
+    <title>rocket-server</title>
+    {% endblock head %}
+</head>
+
+<body>
+    {% block body %}
+    {% endblock body %}
+</body>
+
+</html>

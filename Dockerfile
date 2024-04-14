@@ -21,6 +21,7 @@ RUN cargo build --release;\
 
 # Compile Cargo crate.
 COPY ./src ./src
+COPY ./templates ./templates
 RUN cargo build --release
 
 # Start the server.
