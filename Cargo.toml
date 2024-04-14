@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies.rocket]
 version = "0.5.0"
+features = ["json"]
 
 [dependencies.rocket_db_pools]
 version = "0.1.0"
@@ -15,3 +16,9 @@ features = ["sqlx_sqlite"]
 [dependencies.rocket_dyn_templates]
 version = "0.1.0"
 features = ["tera"]
+
+[dependencies.serde]
+version = "1.0"
+
+[dependencies.sqlx]
+version = "0.7"
