@@ -3,6 +3,7 @@
 <head>
     {% block head %}
     <title>rocket-server</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
     {% endblock head %}
 </head>
 
