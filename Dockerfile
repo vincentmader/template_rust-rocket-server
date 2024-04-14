@@ -1,7 +1,7 @@
 FROM rust:1.74-alpine
 
 # Install external dependencies on Alpine Linux.
-RUN apk add musl-dev 
+RUN apk add musl-dev sqlite
 
 # Define address & port for rocket server.
 ENV ROCKET_ADDRESS=0.0.0.0
@@ -11,6 +11,12 @@ EXPOSE 8000
 WORKDIR /var/www/
 RUN USER=root cargo new --bin rocket-server
 WORKDIR /var/www/rocket-server
+
+# Setup SQLite database.
+COPY ./bin ./bin
+RUN cd ./bin;\
+       ./initialize_database.sh
+COPY ./Rocket.toml .
 
 # Pre-compile Cargo dependencies.
 COPY ./Cargo.lock .

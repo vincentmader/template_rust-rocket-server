@@ -1,7 +1,9 @@
 #[macro_use]
 extern crate rocket;
 use rocket::fs::{relative, FileServer};
+use rocket_db_pools::Database;
 use rocket_dyn_templates::{context, Template};
+use rocket_server::database::SqliteDb;
 
 #[get("/hello/<name>/<age>")]
 fn hello(name: &str, age: u8) -> String {
@@ -20,4 +22,5 @@ fn rocket() -> _ {
         .mount("/", routes![hello, index])
         .mount("/", FileServer::from(relative!("static")))
         .attach(Template::fairing())
+        .attach(SqliteDb::init())
 }

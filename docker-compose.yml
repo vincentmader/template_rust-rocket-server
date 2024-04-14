@@ -10,8 +10,14 @@ services:
       LETSENCRYPT_MAIL: vincent.mader@icloud.com
     ports:        # TODO Specify port number.
       - 8111:8000  
+    volumes: 
+      - ./database:/var/www/rocket-server/database
     networks:
       - reverse-proxy
+
+volumes:
+  database:
+    external: false
 
 networks:
   reverse-proxy:
