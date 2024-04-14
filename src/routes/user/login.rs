@@ -18,7 +18,7 @@ pub async fn login(mut conn: Connection<SqliteDb>, data: Json<Request>) -> ApiRe
     let user_info = &data.user_info;
     let pass_hash = &data.pass_hash;
 
-    if !login_validity::is_valid_login(&mut conn, user_info, pass_hash).await {
+    if login_validity::is_valid_login(&mut conn, user_info, pass_hash).await {
         ApiResponse {
             json: json!("Login succeeded."),
             status: Status::Ok,
