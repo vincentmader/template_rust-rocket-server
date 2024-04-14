@@ -3,7 +3,7 @@ extern crate rocket;
 use rocket::fs::{relative, FileServer};
 use rocket_db_pools::Database;
 use rocket_dyn_templates::{context, Template};
-use rocket_server::{database::SqliteDb, routes};
+use rocket_server::{database::SqliteDb, models::cross_origin_resource_sharing, routes};
 
 #[get("/hello/<name>/<age>")]
 fn hello(name: &str, age: u8) -> String {
@@ -29,6 +29,7 @@ fn rocket() -> _ {
             ],
         )
         .mount("/", FileServer::from(relative!("static")))
-        .attach(Template::fairing())
+        .attach(cross_origin_resource_sharing::cors())
         .attach(SqliteDb::init())
+        .attach(Template::fairing())
 }

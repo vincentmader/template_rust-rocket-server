@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 regex = "1.10.4"
+rocket_cors = "0.6.0"
 
 [dependencies.rocket]
 version = "0.5.0"
