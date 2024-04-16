@@ -4,7 +4,7 @@ use std::str::FromStr;
 pub fn cors() -> Cors {
     let allowed_origins = AllowedOrigins::all();
     let allowed_headers = AllowedHeaders::all();
-    let allowed_methods: AllowedMethods = ["Get", "Post"]
+    let allowed_methods: AllowedMethods = ["Get", "Post", "Options"]
         .iter()
         .map(|s| FromStr::from_str(s).unwrap())
         .collect();
