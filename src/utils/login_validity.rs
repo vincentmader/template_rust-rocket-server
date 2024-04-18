@@ -1,5 +1,6 @@
 use crate::database::SqliteDb;
 use rocket_db_pools::Connection;
+use sqlx::{Row, Value, ValueRef};
 
 pub async fn is_existing_user_name(conn: &mut Connection<SqliteDb>, user_name: &str) -> bool {
     let rows = sqlx::query("SELECT user_name,mail_addr,pass_hash FROM users where user_name = ?")
@@ -24,20 +25,27 @@ pub async fn is_existing_mail_addr(conn: &mut Connection<SqliteDb>, mail_addr: &
 pub async fn is_valid_login(
     conn: &mut Connection<SqliteDb>,
     user_info: &str,
-    pass_hash: &str,
+    pass_word: &str, // NOTE: Not actually the password, but a SHA256 encrypted version of it.
 ) -> bool {
     let rows = sqlx::query(
-        "SELECT user_name,mail_addr,pass_hash FROM users WHERE 
-        (user_name = ? AND pass_hash = ?) OR
-        (mail_addr = ? AND pass_hash = ?)",
+        "SELECT user_name,pass_hash FROM users 
+          WHERE user_name = ? OR mail_addr = ? ",
     )
     .bind(user_info)
-    .bind(pass_hash)
     .bind(user_info)
-    .bind(pass_hash)
     .fetch_all(&mut ***conn)
     .await
     .unwrap();
+    if rows.is_empty() {
+        return false; // Here: No account with this user_name/mail_addr found.
+    }
+    if rows.len() > 1 {
+        panic!("This should never happen. Each username must exist only once.");
+        // TODO Return new `ApiMessage` variant for this.
+    }
 
-    !rows.is_empty()
+    let row = rows.get(0).unwrap();
+    let pass_hash: String = row.try_get_raw(1).unwrap().to_owned().decode();
+
+    bcrypt::verify(pass_word, &pass_hash).unwrap()
 }

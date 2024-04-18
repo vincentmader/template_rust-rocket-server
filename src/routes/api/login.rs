@@ -7,7 +7,7 @@ use serde::Deserialize;
 #[derive(Deserialize)]
 pub struct Request {
     user_info: String, // This can be either `user_name` or `mail_address`.
-    pass_hash: String,
+    pass_hash: String, // This hash has been encrypted AT MOST (or ONLY) with SHA256 so far.
 }
 
 #[post("/login", data = "<data>")]
