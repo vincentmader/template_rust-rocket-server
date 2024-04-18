@@ -1,0 +1,14 @@
+# Features:
+- [x] implemented using the Rust programming language
+- [x] HTTP server with `rocket.rs`
+- [x] Docker virtualization with Alpine Linux
+- [x] HTTPS connections with NginX reverse-proxy
+- [x] aysnchronous request handling
+- [x] SQLite database pool with `sqlx` and `rocket-db-pools`
+- [x] prevention of SQL injection attacks
+- [x] route for user account login
+- [x] route for user account registration
+- [x] route for user account password reset
+- [x] client-side form field validation
+- [x] server-side form field validation
+- [x] server-side password hashing with bcrypt algorithm
