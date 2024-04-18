@@ -11,6 +11,7 @@ fn rocket() -> _ {
     let api_routes = routes![
         routes::api::register::register,
         routes::api::login::login,
+        routes::api::reset_password::reset_password,
         routes::cross_origin_resource_sharing::cors_options
     ];
 
