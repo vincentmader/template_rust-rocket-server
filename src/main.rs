@@ -13,7 +13,8 @@ fn rocket() -> _ {
         routes::api::register::register,
         routes::api::login::login,
         routes::api::reset_password::reset_password,
-        routes::cross_origin_resource_sharing::cors_options
+        routes::api::upload_file::upload_file,
+        routes::cross_origin_resource_sharing::cors_options,
     ];
 
     rocket::build()
