@@ -12,3 +12,4 @@
 - [x] client-side form field validation
 - [x] server-side form field validation
 - [x] server-side password hashing with bcrypt algorithm
+- [x] upload of image files (and saving to `./tmp` directory)
