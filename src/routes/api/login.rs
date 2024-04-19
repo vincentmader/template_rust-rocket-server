@@ -1,4 +1,4 @@
-use crate::{database::SqliteDb, models::api_response::ApiResponse, utils::login_validity};
+use crate::{database::SqliteDb, models::api_response::ApiResponse, services::login_validity};
 use rocket::{http::Status, post, serde::json::Json};
 use rocket_db_pools::Connection;
 use rs_web_api_models::api_message::{ApiError, ApiMessage, ApiOk, LoginError};

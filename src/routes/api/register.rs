@@ -1,6 +1,7 @@
 use crate::{
-    database::SqliteDb, models::api_response::ApiResponse,
-    services::hashing::generate_hashed_password_and_salt, utils::login_validity,
+    database::SqliteDb,
+    models::api_response::ApiResponse,
+    services::{hashing::generate_hashed_password_and_salt, login_validity},
 };
 use rocket::{http::Status, post, serde::json::Json};
 use rocket_db_pools::{sqlx::Executor, Connection};
@@ -22,10 +23,9 @@ pub async fn register(mut conn: Connection<SqliteDb>, data: Json<Request>) -> Ap
     let mail_addr = &data.mail_addr;
     let pass_hash = &data.pass_hash; // Now we will apply additional hashing with bcrypt.
 
-    let hash_parts = generate_hashed_password_and_salt(&pass_hash);
+    let hash_parts = generate_hashed_password_and_salt(pass_hash);
     let version = bcrypt::Version::TwoB; // NOTE: This might have to be updated at some point.
     let pass_hash = hash_parts.format_for_version(version);
-    let hash_salt = hash_parts.get_salt();
 
     let sql = sqlx::query("INSERT INTO users (user_name,mail_addr,pass_hash) VALUES (?,?,?);")
         .bind(user_name)
