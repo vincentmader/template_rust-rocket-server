@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 bcrypt = "0.15.1"
 rand = "0.8.5"
+rocket-multipart-form-data = "0.10.7"
 rocket_cors = "0.6.0"
 rs-web-api-models = { path="../rs-web-api-models" } # TODO Change to GitHub link.
 serde_json = "1.0.116"

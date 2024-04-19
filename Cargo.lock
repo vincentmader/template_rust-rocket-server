@@ -1737,12 +1737,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "rocket-multipart-form-data"
+version = "0.10.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3c3cd05b4ff598b9490fbdfc8edcfdbab0ff3f546c0f58d5d3a7127addbc789"
+dependencies = [
+ "mime",
+ "multer",
+ "rocket",
+ "tokio-util",
+]
+
+[[package]]
 name = "rocket-server"
 version = "0.1.0"
 dependencies = [
  "bcrypt",
  "rand",
  "rocket",
+ "rocket-multipart-form-data",
  "rocket_cors",
  "rocket_db_pools",
  "rocket_dyn_templates",
