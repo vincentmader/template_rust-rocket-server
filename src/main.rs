@@ -4,7 +4,7 @@ extern crate bcrypt;
 use rocket::fs::{relative, FileServer};
 use rocket_db_pools::Database;
 use rocket_dyn_templates::Template;
-use rocket_server::{database::SqliteDb, models::cross_origin_resource_sharing, routes};
+use rocket_server::{database::SqliteDb, models::cross_origin_resource_sharing, services::routes};
 
 #[launch]
 fn rocket() -> _ {
