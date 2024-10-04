@@ -3,22 +3,20 @@ use rocket_db_pools::Connection;
 use sqlx::{Row, Value, ValueRef};
 
 pub async fn is_existing_user_name(conn: &mut Connection<SqliteDb>, user_name: &str) -> bool {
-    let rows = sqlx::query("SELECT user_name,mail_addr,pass_hash FROM users where user_name = ?")
-        .bind(user_name)
+    let rows = sqlx::query("SELECT user_name FROM users where user_name = ?")
+        .bind(user_name) // TODO Make case-insensitive.
         .fetch_all(&mut ***conn)
         .await
         .unwrap();
-
     !rows.is_empty()
 }
 
 pub async fn is_existing_mail_addr(conn: &mut Connection<SqliteDb>, mail_addr: &str) -> bool {
-    let rows = sqlx::query("SELECT user_name,mail_addr,pass_hash FROM users where mail_addr = ?")
-        .bind(mail_addr)
+    let rows = sqlx::query("SELECT user_name FROM users where mail_addr = ?")
+        .bind(mail_addr) // TODO Make case-insensitive.
         .fetch_all(&mut ***conn)
         .await
         .unwrap();
-
     !rows.is_empty()
 }
 
